@@ -2,10 +2,7 @@ package flatten
 
 func Flatten(nested interface{}) []interface{} {
 	out := make([]interface{}, 0)
-	switch value := nested.(type) {
-	case int:
-		out = append(out, value)
-	case []interface{}:
+	if value, ok := nested.([]interface{}); ok {
 		for _, v := range value {
 			switch v.(type) {
 			case int:
