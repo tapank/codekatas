@@ -2,11 +2,11 @@ package account
 
 import "sync"
 
-// Define the Account type here.
+// Account type.
 type Account struct {
-	Bal   int64
-	Open  bool
-	mutex sync.Mutex
+	Bal  int64
+	Open bool
+	lock *sync.Mutex
 }
 
 // Open opens an account. On opening, its initial balance should not be
@@ -16,13 +16,15 @@ func Open(amount int64) *Account {
 	if amount < 0 {
 		return nil
 	}
-	return &Account{Bal: amount, Open: true}
+	return &Account{Bal: amount, Open: true, lock: &sync.Mutex{}}
 }
 
 // Balance returns the balance of the account and a boolean indicating if the
 // operation succeeded. Checking the balance does not succeed if the account is
 // closed.
 func (a *Account) Balance() (int64, bool) {
+	a.lock.Lock()
+	defer a.lock.Unlock()
 	return a.Bal, a.Open
 }
 
@@ -33,8 +35,8 @@ func (a *Account) Balance() (int64, bool) {
 // indicates if the operation succeeded. Deposit fails if the account is closed
 // or if there is not enough money to withdraw from the account.
 func (a *Account) Deposit(amount int64) (int64, bool) {
-	a.mutex.Lock()
-	defer a.mutex.Unlock()
+	a.lock.Lock()
+	defer a.lock.Unlock()
 	if a.Open && a.Bal+amount >= 0 {
 		a.Bal += amount
 		return a.Bal, true
@@ -47,8 +49,8 @@ func (a *Account) Deposit(amount int64) (int64, bool) {
 // not succeed if the account is already closed. When an account is closed, its
 // balance must be set to 0.
 func (a *Account) Close() (int64, bool) {
-	a.mutex.Lock()
-	defer a.mutex.Unlock()
+	a.lock.Lock()
+	defer a.lock.Unlock()
 	if a.Open {
 		a.Open = false
 		amt := a.Bal
