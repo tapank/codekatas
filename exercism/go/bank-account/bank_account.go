@@ -9,7 +9,7 @@ type Account struct {
 	lock *sync.Mutex
 }
 
-// Open opens an account. On opening, its initial balance should not be
+// Open opens an account. On opening, its initial balance will not be
 // negative. If a negative balance is given to the Open function, nil is
 // returned, otherwise the newly created account is returned.
 func Open(amount int64) *Account {
