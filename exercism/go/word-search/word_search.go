@@ -23,7 +23,10 @@ words:
 		}
 
 		for r, row := range p {
-			for c := range row {
+			for c, ch := range row {
+				if ch != rune(word[0]) {
+					continue
+				}
 				start := [2]int{r, c}
 				if end, ok := findword(p, word, start); ok {
 					a[word] = [2][2]int{{c, r}, {end[1], end[0]}}
