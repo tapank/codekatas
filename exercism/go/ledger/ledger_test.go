@@ -29,7 +29,7 @@ Date       | Description               | Change
 			{
 				Date:        "2015-01-01",
 				Description: "Buy present",
-				Amount:      -1000,
+				Change:      -1000,
 			},
 		},
 		expected: `
@@ -45,12 +45,12 @@ Date       | Description               | Change
 			{
 				Date:        "2015-01-02",
 				Description: "Get present",
-				Amount:      1000,
+				Change:      1000,
 			},
 			{
 				Date:        "2015-01-01",
 				Description: "Buy present",
-				Amount:      -1000,
+				Change:      -1000,
 			},
 		},
 		expected: `
@@ -67,12 +67,12 @@ Date       | Description               | Change
 			{
 				Date:        "2015-01-01",
 				Description: "Buy present",
-				Amount:      -1000,
+				Change:      -1000,
 			},
 			{
 				Date:        "2015-01-01",
 				Description: "Get present",
-				Amount:      1000,
+				Change:      1000,
 			},
 		},
 		expected: `
@@ -89,17 +89,17 @@ Date       | Description               | Change
 			{
 				Date:        "2015-01-01",
 				Description: "Something",
-				Amount:      0,
+				Change:      0,
 			},
 			{
 				Date:        "2015-01-01",
 				Description: "Something",
-				Amount:      -1,
+				Change:      -1,
 			},
 			{
 				Date:        "2015-01-01",
 				Description: "Something",
-				Amount:      1,
+				Change:      1,
 			},
 		},
 		expected: `
@@ -117,7 +117,7 @@ Date       | Description               | Change
 			{
 				Date:        "2015-01-01",
 				Description: "Freude schoner Gotterfunken",
-				Amount:      -123456,
+				Change:      -123456,
 			},
 		},
 		expected: `
@@ -133,7 +133,7 @@ Date       | Description               | Change
 			{
 				Date:        "2015-01-01",
 				Description: "Buy present",
-				Amount:      -1000,
+				Change:      -1000,
 			},
 		},
 		expected: `
@@ -149,7 +149,7 @@ Date       | Description               | Change
 			{
 				Date:        "2015-03-12",
 				Description: "Buy present",
-				Amount:      123456,
+				Change:      123456,
 			},
 		},
 		expected: `
@@ -165,7 +165,7 @@ Datum      | Omschrijving              | Verandering
 			{
 				Date:        "2015-03-12",
 				Description: "Buy present",
-				Amount:      -12345,
+				Change:      -12345,
 			},
 		},
 		expected: `
@@ -181,7 +181,7 @@ Datum      | Omschrijving              | Verandering
 			{
 				Date:        "2015-03-12",
 				Description: "Buy present",
-				Amount:      -12345,
+				Change:      -12345,
 			},
 		},
 		expected: `
@@ -229,7 +229,7 @@ var failureTestCases = []struct {
 			{
 				Date:        "2015-131-11",
 				Description: "Buy present",
-				Amount:      12345,
+				Change:      12345,
 			},
 		},
 	},
@@ -241,7 +241,7 @@ var failureTestCases = []struct {
 			{
 				Date:        "2015-12/11",
 				Description: "Buy present",
-				Amount:      12345,
+				Change:      12345,
 			},
 		},
 	},
@@ -278,12 +278,12 @@ func TestFormatLedgerNotChangeInput(t *testing.T) {
 		{
 			Date:        "2015-01-02",
 			Description: "Freude schöner Götterfunken",
-			Amount:      1000,
+			Change:      1000,
 		},
 		{
 			Date:        "2015-01-01",
 			Description: "Buy present",
-			Amount:      -1000,
+			Change:      -1000,
 		},
 	}
 	entriesCopy := make([]Entry, len(entries))

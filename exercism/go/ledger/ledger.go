@@ -12,7 +12,7 @@ import (
 type Entry struct {
 	Date        string // "Y-m-d"
 	Description string
-	Amount      int // in cents
+	Change      int // in cents
 }
 
 var currencies = map[string]string{"EUR": "€", "USD": "$"}
@@ -38,7 +38,7 @@ func FormatLedger(currency string, locale string, orignialEntries []Entry) (stri
 	entries := make([]Entry, len(orignialEntries))
 	copy(entries, orignialEntries)
 	sort.Slice(entries, func(i, j int) bool {
-		return entries[i].Date < entries[j].Date || entries[i].Amount < entries[j].Amount
+		return entries[i].Date < entries[j].Date || entries[i].Change < entries[j].Change
 	})
 
 	// create header
@@ -77,7 +77,7 @@ func formatRow(locale, currency string, entry Entry) (string, error) {
 	}
 
 	// format amount
-	a := formatAmount(entry.Amount, locale, currency)
+	a := formatAmount(entry.Change, locale, currency)
 
 	return fmt.Sprintf("%10s | %-25s | %13s\n", d, de, a), nil
 }
